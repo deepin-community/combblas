@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+include /usr/share/dpkg/architecture.mk
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+BUILDDIR = obj-$(DEB_HOST_GNU_TYPE)
+LIBDIR = $(CURDIR)/$(BUILDDIR)
+
+# Allow test programs that uses OpenMPI to run
+export OMPI_MCA_plm_rsh_agent=/bin/false
+
+
+%:
+	dh $@
+
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+            -DBUILD_SHARED_LIBS=ON \
+            -DCMAKE_SKIP_RPATH=ON \
+            -DCMAKE_C_COMPILER=mpicc \
+            -DCMAKE_CXX_COMPILER=mpic++ \
+            -DMPIEXEC_PREFLAGS=--allow-run-as-root
+	tar xzf debian/testdata_combblas*.tgz -C $(BUILDDIR)
+
+
+override_dh_auto_test-arch:
+	LD_LIBRARY_PATH=$(LIBDIR):$(LIBDIR)/usort:$(LIBDIR)/graph500-1.2/generator:$${LD_LIBRARY_PATH} \
+	    dh_auto_test || /bin/true
+
+override_dh_auto_test-indep:
+	# no tests for docs
+
+override_dh_auto_install:
+	dh_auto_install
+	# MacOS auxiliary file, should never have been installed
+	rm -f debian/tmp/usr/include/CombBLAS/._CombBLAS.h
+
+override_dh_installchangelogs:
+	dh_installchangelogs release-notes.html
+
+override_dh_installdocs-indep:
+	doxygen
+	dh_installdocs -X.dot -X.md5

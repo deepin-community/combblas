@@ -1,0 +1,80 @@
+Source: combblas
+Priority: optional
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Drew Parsons <dparsons@debian.org>
+Build-Depends: debhelper-compat (= 13),
+ cmake (>= 3.3),
+ doxygen,
+ graphviz,
+ mpi-default-dev
+Standards-Version: 4.5.1
+Section: libs
+Homepage: https://people.eecs.berkeley.edu/~aydin/CombBLAS/html/index.html
+Vcs-Browser: https://salsa.debian.org/science-team/combblas
+Vcs-Git: https://salsa.debian.org/science-team/combblas.git
+
+Package: libcombblas-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libcombblas1.16.0 (= ${binary:Version}), ${misc:Depends}
+Suggests: libcombblas-docs
+Description: an extensible parallel graph library for graph analytics
+ The Combinatorial BLAS (CombBLAS) is an extensible distributed-memory
+ parallel graph library offering a small but powerful set of linear
+ algebra primitives specifically targeting graph analytics.
+ .
+   - The Combinatorial BLAS development influences the Graph BLAS
+     standardization process.
+   - It achieves scalability via its two dimensional distribution and
+     coarse-grained parallelism.
+   - CombBLAS powers HipMCL, a highly-scalable parallel implementation of
+     the Markov Cluster Algorithm (MCL).
+   - Operations among sparse matrices and vectors use arbitrary user
+     defined semirings.
+ .
+ This package provides development files for building client
+ applications against combblas.
+
+Package: libcombblas1.16.0
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: an extensible parallel graph library for graph analytics
+ The Combinatorial BLAS (CombBLAS) is an extensible distributed-memory
+ parallel graph library offering a small but powerful set of linear
+ algebra primitives specifically targeting graph analytics.
+ .
+   - The Combinatorial BLAS development influences the Graph BLAS
+     standardization process.
+   - It achieves scalability via its two dimensional distribution and
+     coarse-grained parallelism.
+   - CombBLAS powers HipMCL, a highly-scalable parallel implementation of
+     the Markov Cluster Algorithm (MCL).
+   - Operations among sparse matrices and vectors use arbitrary user
+     defined semirings.
+ .
+ This package provides the combblas shared library.
+
+Package: libcombblas-docs
+Section: libdevel
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Recommends: libcombblas-dev
+Description: an extensible parallel graph library for graph analytics (docs)
+ The Combinatorial BLAS (CombBLAS) is an extensible distributed-memory
+ parallel graph library offering a small but powerful set of linear
+ algebra primitives specifically targeting graph analytics.
+ .
+   - The Combinatorial BLAS development influences the Graph BLAS
+     standardization process.
+   - It achieves scalability via its two dimensional distribution and
+     coarse-grained parallelism.
+   - CombBLAS powers HipMCL, a highly-scalable parallel implementation of
+     the Markov Cluster Algorithm (MCL).
+   - Operations among sparse matrices and vectors use arbitrary user
+     defined semirings.
+ .
+ This package provides full HTML documentation for the CombBLAS API.
+

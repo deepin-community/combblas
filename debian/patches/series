@@ -1,0 +1,4 @@
+cmake_multiarch.patch
+sublibs_soname.patch
+AWPM_library_38dd27e.patch
+GraphGenlib_link_math.patch

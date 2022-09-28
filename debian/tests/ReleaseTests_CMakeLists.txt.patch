@@ -1,0 +1,23 @@
+--- CMakeLists.txt.orig	2018-11-24 01:11:35.812960274 +0800
++++ CMakeLists.txt	2018-11-24 01:12:17.306440016 +0800
+@@ -1,4 +1,5 @@
+-# Top level directory has the include files
++cmake_minimum_required(VERSION 3.3)
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+ 
+ ADD_EXECUTABLE( MultTiming MultTiming.cpp )
+ ADD_EXECUTABLE( MultTest MultTest.cpp )
+@@ -17,10 +18,10 @@
+ TARGET_LINK_LIBRARIES( ReduceTest CombBLAS)
+ TARGET_LINK_LIBRARIES( TransposeTest CombBLAS)
+ TARGET_LINK_LIBRARIES( IteratorTest CombBLAS)
+-TARGET_LINK_LIBRARIES( IndexingTest CombBLAS)
+-TARGET_LINK_LIBRARIES( SpAsgnTest CombBLAS)
++TARGET_LINK_LIBRARIES( IndexingTest CombBLAS Usortlib)
++TARGET_LINK_LIBRARIES( SpAsgnTest CombBLAS Usortlib)
+ TARGET_LINK_LIBRARIES( GalerkinNew CombBLAS)
+-TARGET_LINK_LIBRARIES( IndexingTiming CombBLAS)
++TARGET_LINK_LIBRARIES( IndexingTiming CombBLAS GraphGenlib)
+ TARGET_LINK_LIBRARIES( FindSparse CombBLAS)
+ TARGET_LINK_LIBRARIES( ParIOTest CombBLAS)
+ 

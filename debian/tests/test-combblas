@@ -1,0 +1,25 @@
+export OMPI_MCA_plm_rsh_agent=/bin/false
+export OMPI_MCA_rmaps_base_oversubscribe=1
+
+# create ctest control scripts
+mkdir build
+(cd build; CC=mpicc CXX=mpicxx cmake -Wno-dev ..)
+
+# tests use TESTDATA in the dir above them
+tar xzf debian/testdata_combblas*.tgz -C ReleaseTests/
+
+# build tests against system installation of combblas
+cd ReleaseTests
+patch <../debian/tests/ReleaseTests_CMakeLists.txt.patch
+mkdir tmp_tests
+cd tmp_tests
+CC=mpicc CXX=mpicxx cmake -Wno-dev ..
+make
+
+# put ctest control script into place
+cp ../../build/ReleaseTests/CTestTestfile.cmake .
+mv ../../build/ReleaseTests ../../build/ReleaseTests_upper
+ln -s $PWD ../../build/ReleaseTests
+
+# run tests
+ctest --verbose

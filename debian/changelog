@@ -1,0 +1,54 @@
+combblas (1.6.2-6) unstable; urgency=medium
+
+  * debian patch AWPM_library_38dd27e.patch applies patch from
+    guix 38dd27e to adjust AWPM headers for library use.
+    Enables operation with other libraries such as SuperLU-Dist, see
+    https://github.com/xiaoyeli/superlu_dist/issues/60
+  * debian patch GraphGenlib_link_math.patch links GraphGenlib against
+    libm (for sqrt,pow,log)
+  * install CombBLAS cmake config files
+  * debian/tests: run verbose ctest to report test failure details
+  * debhelper compatibility level 13
+    - mark usr/include/.DS_Store as not-installed
+  * Standards-Version: 4.5.1
+
+ -- Drew Parsons <dparsons@debian.org>  Mon, 11 Jan 2021 15:57:35 +1100
+
+combblas (1.6.2-5) unstable; urgency=medium
+
+  * use cmake with -Wno-dev in debian/tests to avoid developer
+    warnings (which are written to stderr, inducing test fail)
+  * Standards-Version: 4.4.1
+
+ -- Drew Parsons <dparsons@debian.org>  Mon, 25 Nov 2019 11:05:08 +0800
+
+combblas (1.6.2-4) unstable; urgency=medium
+
+  * Standards-Version: 4.4.0
+  * debhelper compatibility level 12: debhelper-compat (= 12)
+  * don't install .dot and .md5 files with docs.
+    Thanks Chris Lamb. Closes: #931102.
+  * Build-Depends: graphviz to provide dot for building doc images.
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 14 Sep 2019 22:43:46 +0800
+
+combblas (1.6.2-3) unstable; urgency=medium
+
+  * install header files for BipartiteMatchings (used by SuperLU-Dist)
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 24 Nov 2018 17:03:49 +0800
+
+combblas (1.6.2-2) unstable; urgency=medium
+
+  * add debian/tests (autopkgtest)
+  * mark libcombblas-docs as Multi-Arch: foreign
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 24 Nov 2018 01:26:15 +0800
+
+combblas (1.6.2-1) unstable; urgency=medium
+
+  * Initial release (Closes: #910002)
+    - keep upstream testdata_combblas1.6.1.tgz in debian dir to
+      provide TESTDATA for build-time tests
+
+ -- Drew Parsons <dparsons@debian.org>  Wed, 03 Oct 2018 01:31:59 +0800

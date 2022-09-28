@@ -1,0 +1,17 @@
+Index: combblas/graph500-1.2/generator/CMakeLists.txt
+===================================================================
+--- combblas.orig/graph500-1.2/generator/CMakeLists.txt	2021-01-11 15:38:11.604937476 +1100
++++ combblas/graph500-1.2/generator/CMakeLists.txt	2021-01-11 15:39:43.133902527 +1100
+@@ -7,6 +7,12 @@
+   target_compile_options(GraphGenlib PRIVATE "-restrict")
+ endif()
+ 
++include(CheckLibraryExists)
++CHECK_LIBRARY_EXISTS(m sqrt "" HAVE_LIB_M)
++if (HAVE_LIB_M)
++  target_link_libraries(GraphGenlib PUBLIC m)
++endif (HAVE_LIB_M)
++
+ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ install(TARGETS GraphGenlib EXPORT CombBLASTargets
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

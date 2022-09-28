@@ -1,0 +1,12 @@
+Document: combblas
+Title: CombBLAS API Manual
+Author: Ariful Azad , Aydın Buluç , and John R. Gilbert (with contributions from Adam Lugowski, Scott Beamer and Tristan Konolige)
+Abstract: The Combinatorial BLAS (CombBLAS) is an extensible
+ distributed-memory parallel graph library offering a small but
+ powerful set of linear algebra primitives specifically targeting
+ graph analytics.
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/libcombblas-docs/html/index.html
+Files: /usr/share/doc/libcombblas-docs/html/*.html

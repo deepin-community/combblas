@@ -1,0 +1,16 @@
+Index: combblas/CMakeLists.txt
+===================================================================
+--- combblas.orig/CMakeLists.txt
++++ combblas/CMakeLists.txt
+@@ -47,9 +47,11 @@ endif()
+ 
+ ADD_SUBDIRECTORY( usort )
+ target_link_libraries(CombBLAS PUBLIC Usortlib)
++set_property(TARGET Usortlib PROPERTY VERSION "${CMAKE_PROJECT_NAME}_${CMAKE_PROJECT_VERSION}")
+ 
+ ADD_SUBDIRECTORY( graph500-1.2/generator )
+ target_link_libraries(CombBLAS PUBLIC GraphGenlib)
++set_property(TARGET GraphGenlib PROPERTY VERSION "${CMAKE_PROJECT_NAME}_${CMAKE_PROJECT_VERSION}")
+ 
+ 
+ # Set up exported configuration

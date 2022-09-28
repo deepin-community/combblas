@@ -1,0 +1,73 @@
+Index: combblas/CMakeLists.txt
+===================================================================
+--- combblas.orig/CMakeLists.txt
++++ combblas/CMakeLists.txt
+@@ -16,6 +16,7 @@ else()
+ endif()
+ 
+ # set include directories
++include(GNUInstallDirs)
+ target_include_directories(CombBLAS PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+ target_include_directories(CombBLAS PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/psort-1.0/include> $<INSTALL_INTERFACE:include>)
+ target_include_directories(CombBLAS PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/CombBLAS)
+@@ -66,13 +67,13 @@ generate_export_header(CombBLAS)
+ set_property(TARGET CombBLAS PROPERTY VERSION ${CombBLAS_VERSION})
+ 
+ # installation
+-install(DIRECTORY include/ DESTINATION include)
+-install(DIRECTORY psort-1.0/include/ DESTINATION include)
++install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++install(DIRECTORY psort-1.0/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ install(TARGETS CombBLAS EXPORT CombBLASTargets
+-  LIBRARY DESTINATION lib
+-  ARCHIVE DESTINATION lib
+-  RUNTIME DESTINATION bin
+-  INCLUDES DESTINATION include
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+ 
+ include(CMakePackageConfigHelpers)
+Index: combblas/usort/CMakeLists.txt
+===================================================================
+--- combblas.orig/usort/CMakeLists.txt
++++ combblas/usort/CMakeLists.txt
+@@ -4,11 +4,10 @@ ADD_LIBRARY( Usortlib src/parUtils.cpp s
+ target_include_directories(Usortlib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+ target_include_directories(Usortlib PRIVATE include/usort)
+ 
+-install(DIRECTORY include/ DESTINATION include)
++install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ install(TARGETS Usortlib EXPORT CombBLASTargets
+-  LIBRARY DESTINATION lib
+-  ARCHIVE DESTINATION lib
+-  RUNTIME DESTINATION bin
+-  INCLUDES DESTINATION include
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+-
+Index: combblas/graph500-1.2/generator/CMakeLists.txt
+===================================================================
+--- combblas.orig/graph500-1.2/generator/CMakeLists.txt
++++ combblas/graph500-1.2/generator/CMakeLists.txt
+@@ -7,10 +7,10 @@ if(CMAKE_C_COMPILER_ID STREQUAL "Intel")
+   target_compile_options(GraphGenlib PRIVATE "-restrict")
+ endif()
+ 
+-install(DIRECTORY include/ DESTINATION include)
++install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ install(TARGETS GraphGenlib EXPORT CombBLASTargets
+-  LIBRARY DESTINATION lib
+-  ARCHIVE DESTINATION lib
+-  RUNTIME DESTINATION bin
+-  INCLUDES DESTINATION include
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
